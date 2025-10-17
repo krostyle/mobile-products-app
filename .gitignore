@@ -47,7 +47,6 @@ app.*.map.json
 # Archivos sensibles y credenciales
 .env*
 **/google-services.json
-**/firebase_options.dart
 firebase.json
 **/serviceAccountKey.json
 **/private_key.pem
