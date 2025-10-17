@@ -27,4 +27,13 @@ class ProductService {
       'stock': newStock,
     });
   }
+
+  static Future<void> updateProductSupplier(
+    String productId,
+    String newSupplierId,
+  ) async {
+    await FirebaseFirestore.instance.collection('products').doc(productId).set({
+      'supplierId': newSupplierId,
+    }, SetOptions(merge: true));
+  }
 }

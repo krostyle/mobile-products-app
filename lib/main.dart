@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile_products_app/pages/categories_page.dart';
+import 'package:mobile_products_app/pages/dashboard_page.dart';
 import 'package:mobile_products_app/pages/products_page.dart';
 import 'package:mobile_products_app/pages/recover_page.dart';
+import 'package:mobile_products_app/pages/suppliers_page.dart';
 import 'package:mobile_products_app/providers/cart_provider.dart';
+import 'package:mobile_products_app/providers/suppliers_provider.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'pages/login_page.dart';
@@ -14,7 +18,10 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => CartProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => SuppliersProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -32,8 +39,11 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginPage(),
       routes: {
-        '/recover': (context) => const RecoverPage(),
+        '/dashboard': (context) => const DashboardPage(),
         '/products': (context) => const ProductsPage(),
+        '/categories': (context) => const CategoriesPage(),
+        '/suppliers': (context) => const SuppliersPage(),
+        '/recover': (context) => const RecoverPage(),
       },
     );
   }

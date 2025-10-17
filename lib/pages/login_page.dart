@@ -4,6 +4,7 @@ import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -20,8 +21,11 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
     try {
-      await AuthService.login(emailController.text.trim(), passwordController.text);
-      Navigator.pushReplacementNamed(context, '/products');
+      await AuthService.login(
+        emailController.text.trim(),
+        passwordController.text,
+      );
+      Navigator.pushReplacementNamed(context, '/dashboard');
     } catch (e) {
       String errorMsg = e.toString();
       bool emailInUse = errorMsg.contains('correo ya está registrado');
@@ -31,12 +35,12 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.red,
           action: emailInUse
               ? SnackBarAction(
-            label: 'Recuperar contraseña',
-            textColor: Colors.white,
-            onPressed: () {
-              Navigator.pushNamed(context, '/recover');
-            },
-          )
+                  label: 'Recuperar contraseña',
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/recover');
+                  },
+                )
               : null,
         ),
       );
@@ -88,9 +92,9 @@ class _LoginPageState extends State<LoginPage> {
               isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
-                onPressed: _login,
-                child: const Text('Iniciar sesión'),
-              ),
+                      onPressed: _login,
+                      child: const Text('Iniciar sesión'),
+                    ),
               TextButton(
                 onPressed: () => Navigator.pushNamed(context, '/recover'),
                 child: const Text('¿Olvidaste tu contraseña?'),
